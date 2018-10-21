@@ -47,6 +47,7 @@ class DataList(APIView):
     #@api_view(['POST'])
     def post(self,request,format=None):
         json_data = request.body.decode('utf-8')
+        #print(request.body)
         data1 = json.loads(json_data)
         unix_timestamp = float(data1['clickDate'])/1000
         local_timezone = tzlocal.get_localzone()
@@ -57,6 +58,7 @@ class DataList(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        #return Response(request.body)
 
     #@api_view(['GET'])
     def get(self,request,format=None):

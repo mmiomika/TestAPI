@@ -13,7 +13,7 @@ class Data(models.Model):
     rows = models.IntegerField()
 
     class Meta:
-        db_table = 'check_data_test'
+        db_table = 'clicks_recommend'
 
 class OneItemsCategories(models.Model):
     itemId = models.BigIntegerField(db_column='itemId', primary_key=True)  # Field name made lowercase.
@@ -41,8 +41,6 @@ class Result(models.Model):
 
     class Meta:
         db_table = 'results_recommend'
-    #items = models.ForeignKey(Items, on_delete=models.CASCADE,)
-
 
 
 

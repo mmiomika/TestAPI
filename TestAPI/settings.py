@@ -23,11 +23,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'h)!%_c*f5yy2jru78rgo!2vv$9l%+@fut485-dans##2yq2vrx'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []#['localhost',
-                 #None,
-                 #'127.0.0.1',]
+ALLOWED_HOSTS = ['localhost',
+                 None,
+                 '127.0.0.1',]
 
 
 # Application definition
@@ -74,7 +74,24 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'TestAPI.wsgi.application'
 
-
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': 'debug.log',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+    },
+}
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
@@ -83,10 +100,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'qwyIntelect',
-        'HOST': '172.20.30.150',
-        'PORT': '13306',
-        'USER': 'dev',
-        'PASSWORD': 'dev',
+        'HOST': '',
+        'PORT': '',
+        'USER': '',
+        'PASSWORD': '',
     }
 }
 

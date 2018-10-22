@@ -7,7 +7,6 @@ from rest_framework import status
 import json
 from datetime import datetime
 import tzlocal
-from django.forms.models import model_to_dict
 from sklearn.preprocessing import LabelEncoder
 import numpy as np
 import pandas as pd
@@ -16,6 +15,7 @@ from TestAPI.settings import BASE_DIR
 from collections import defaultdict
 import os
 import operator
+#import time
 
 
 def add_missing_columns( d, columns ):
@@ -44,11 +44,10 @@ def f(df):
 
 class DataList(APIView):
 
-    #@api_view(['POST'])
     def post(self,request,format=None):
         json_data = request.body.decode('utf-8')
-        #print(request.body)
         data1 = json.loads(json_data)
+        print(data1)
         unix_timestamp = float(data1['clickDate'])/1000
         local_timezone = tzlocal.get_localzone()
         time_format = datetime.fromtimestamp(unix_timestamp, local_timezone)
@@ -58,19 +57,22 @@ class DataList(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        #return Response(request.body)
 
-    #@api_view(['GET'])
-    def get(self,request,format=None):
+class DataList2(APIView):
+    def post(self,request,format=None):
         #start_time = time.time()
-        check = Data.objects.last()
-        dict = model_to_dict(check)
-        test = pd.DataFrame.from_dict(dict, orient='index').T
+        json_data = request.body.decode('utf-8')
+        data1 = json.loads(json_data)
+        unix_timestamp = float(data1['clickDate'])/1000
+        local_timezone = tzlocal.get_localzone()
+        time_format = datetime.fromtimestamp(unix_timestamp, local_timezone)
+        data1['clickDate'] = time_format.isoformat()
+        test = pd.DataFrame.from_dict(data1, orient='index').T
         lb = LabelEncoder()
         lb.classes_ = np.load(os.path.join(BASE_DIR, 'check/classes.npy'))
         test = test.fillna(0)
-        test['weekday'] = test['clickDate'].apply(lambda x: x.weekday())
-        test['month'] = test['clickDate'].apply(lambda x: x.month)
+        test['weekday'] = time_format.weekday()
+        test['month'] = time_format.month
         X_test = test[['itemId', 'countryCode', 'weekday', 'month', 'market']]
         X_test = pd.concat([X_test, pd.get_dummies(X_test['market'],
                                                    prefix="market"),
@@ -156,5 +158,12 @@ class DataList(APIView):
                      "categoryPercentage": categoryBest[0],
                      "items": itemsList}
         serializer = ResultSerializer(finalDict)
-        #print("--- %s seconds ---" % (time.time() - start_time))
-        return Response(serializer.data)
+        '''
+        SAVE RESULTS OF PREDICT
+        if serializer.is_valid():
+            serializer.save()
+            print("--- %s seconds ---" % (time.time() - start_time))
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        '''
+        return Response(serializer.data, status = status.HTTP_200_OK)

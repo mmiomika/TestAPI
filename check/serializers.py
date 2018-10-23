@@ -8,9 +8,9 @@ class DataSerializer(serializers.Serializer):
     userId = serializers.IntegerField(default=0, allow_null=True)
     clickType = serializers.CharField(max_length=16)
     clickDate = serializers.DateTimeField()
-    itemId = serializers.IntegerField()
-    page = serializers.IntegerField(default=1)
-    rows = serializers.IntegerField()
+    itemId = serializers.IntegerField(allow_null=True)
+    page = serializers.IntegerField(default=1, allow_null=True)
+    rows = serializers.IntegerField(allow_null=True)
 
     def create(self, validated_data):
         return Data.objects.create(**validated_data)

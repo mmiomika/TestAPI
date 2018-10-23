@@ -67,6 +67,8 @@ class DataList2(APIView):
         local_timezone = tzlocal.get_localzone()
         time_format = datetime.fromtimestamp(unix_timestamp, local_timezone)
         data1['clickDate'] = time_format.isoformat()
+        #try:
+        #    if data1['']
         test = pd.DataFrame.from_dict(data1, orient='index').T
         lb = LabelEncoder()
         lb.classes_ = np.load(os.path.join(BASE_DIR, 'check/classes.npy'))

@@ -8,12 +8,13 @@ class Data(models.Model):
     userId = models.IntegerField(default=0, null=True)
     clickType = models.CharField(max_length=16)
     clickDate = models.DateTimeField(db_column='clickDate')
-    itemId = models.IntegerField()
-    page = models.IntegerField(default=1)
-    rows = models.IntegerField()
+    itemId = models.IntegerField(null=True)
+    page = models.IntegerField(default=1, null=True)
+    rows = models.IntegerField(null=True)
 
     class Meta:
         db_table = 'clicks_recommend'
+
 
 class OneItemsCategories(models.Model):
     itemId = models.BigIntegerField(db_column='itemId', primary_key=True)  # Field name made lowercase.

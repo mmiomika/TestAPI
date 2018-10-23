@@ -114,7 +114,7 @@ class DataList2(APIView):
         result2 = defaultdict(lambda: list(result1.keys()))
         for k, v in result1.items():
             sorted_x = sorted(v.items(), key=operator.itemgetter(1), reverse=True)
-            result2[k] = sorted_x[start:end]
+            result2[k] = sorted_x#[start:end]
         final = pd.DataFrame(list(result2.items()), columns=['categoryId', 'items'])
         items_list = [[]]
         prob_list = [[]]
@@ -144,12 +144,13 @@ class DataList2(APIView):
             prob_cnt.append(cnt1)
         prob_cnt.pop(0)
         final['percentItem'] = prob_cnt
+        final['percentItem1'] = final['percentItem'].apply(lambda x: x[start:end])
         catList = []
         probab = []
         for x in cats:
             if x in final['categoryId']:
                 catList = (list(final[final['categoryId'] == x]['itemsId'])[0])
-                probab = (list(final[final['categoryId'] == x]['percentItem'])[0])
+                probab = (list(final[final['categoryId'] == x]['percentItem1'])[0])
         itemsList = []
         for k, v in zip(catList, probab):
             tmpDict = {"itemId": k, "percentItem": v}

@@ -145,11 +145,12 @@ class DataList2(APIView):
         prob_cnt.pop(0)
         final['percentItem'] = prob_cnt
         final['percentItem1'] = final['percentItem'].apply(lambda x: x[start:end])
+        final['itemsId1'] = final['itemsId'].apply(lambda x: x[start:end])
         catList = []
         probab = []
         for x in cats:
             if x in final['categoryId']:
-                catList = (list(final[final['categoryId'] == x]['itemsId'])[0])
+                catList = (list(final[final['categoryId'] == x]['itemsId1'])[0])
                 probab = (list(final[final['categoryId'] == x]['percentItem1'])[0])
         itemsList = []
         for k, v in zip(catList, probab):

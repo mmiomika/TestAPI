@@ -15,6 +15,7 @@ from TestAPI.settings import BASE_DIR
 from collections import defaultdict
 import os
 import operator
+from django.http import JsonResponse
 #import time
 
 
@@ -55,8 +56,8 @@ class DataList(APIView):
         serializer = DataSerializer(data=data1)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return JsonResponse({"data": serializer.data})
+        return JsonResponse({"error": serializer.errors})
 
     def get(self, request, format=None):
         return Response("WORK WORK WORK", status=status.HTTP_200_OK)
@@ -169,7 +170,7 @@ class DataList2(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         '''
-        return Response(serializer.data, status = status.HTTP_200_OK)
+        return JsonResponse(serializer.data)
 
     def get(self, request, format=None):
         return Response("WORK WORK WORK", status=status.HTTP_200_OK)

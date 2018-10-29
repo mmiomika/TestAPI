@@ -146,12 +146,15 @@ class DataList2(APIView):
         final['percentItem'] = prob_cnt
         final['percentItem1'] = final['percentItem'].apply(lambda x: x[start:end])
         final['itemsId1'] = final['itemsId'].apply(lambda x: x[start:end])
+        final['isNext'] = final['percentItem'].apply(lambda x: 1 if (len(x) - end) >= 0 else 0)
         catList = []
         probab = []
+        flg = 0
         for x in cats:
             if x in final['categoryId']:
                 catList = (list(final[final['categoryId'] == x]['itemsId1'])[0])
                 probab = (list(final[final['categoryId'] == x]['percentItem1'])[0])
+                flg = (list(final[final['categoryId'] == x]['isNext'])[0])
         itemsList = []
         for k, v in zip(catList, probab):
             tmpDict = {"itemId": k, "percentItem": v}
@@ -162,6 +165,7 @@ class DataList2(APIView):
                      "userId": list(test['userId'])[0],
                      "categoryId": cats[0],
                      "categoryPercentage": categoryBest[0],
+                     "isNext": flg,
                      "items": itemsList}
         serializer = ResultSerializer(finalDict)
         '''

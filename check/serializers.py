@@ -61,6 +61,7 @@ class ResultSerializer(serializers.Serializer):
     countryCode = serializers.CharField(max_length=3)
     categoryId = serializers.IntegerField()
     categoryPercentage = serializers.FloatField()
+    isNext = serializers.IntegerField(default=0)
     items = ItemsSerializer(many=True)
 
     class Meta:
@@ -83,6 +84,7 @@ class ResultSerializer(serializers.Serializer):
         instance.countryCode = validated_data.get('countryCode', instance.countryCode)
         instance.categoryId = validated_data.get('categoryId', instance.categoryId)
         instance.categoryPercentage = validated_data.get('categoryPercentage', instance.categoryPercentage)
+        instance.isNext = validated_data.get('isNext', instance.isNext)
 
         items_list = []
 
@@ -93,7 +95,6 @@ class ResultSerializer(serializers.Serializer):
         instance.items = items_list
         instance.save()
         return instance
-
 
 
 

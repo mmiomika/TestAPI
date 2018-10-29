@@ -100,8 +100,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'qwyIntelect',
-        'HOST': '',
-        'PORT': '',
+        'HOST': '172.20.30.150',
+        'PORT': '23306',
         'USER': '',
         'PASSWORD': '',
     }

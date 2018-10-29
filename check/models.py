@@ -38,6 +38,7 @@ class Result(models.Model):
     countryCode = models.CharField(max_length=3)
     categoryId = models.BigIntegerField(db_column='categoryId')
     categoryPercentage = models.FloatField()
+    isNext = models.IntegerField(default=0)
     items = models.ManyToManyField(Items)
 
     class Meta:

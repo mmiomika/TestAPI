@@ -16,7 +16,14 @@ from collections import defaultdict
 import os
 import operator
 from django.http import JsonResponse
-#import time
+from django.db import connection
+from scipy import sparse
+from matplotlib import dates
+from sqlalchemy import create_engine
+import time
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import GradientBoostingClassifier
+from sklearn.linear_model import LogisticRegression
 
 
 def add_missing_columns( d, columns ):
@@ -180,3 +187,44 @@ class DataList2(APIView):
 
     def get(self, request, format=None):
         return Response("WORK WORK WORK", status=status.HTTP_200_OK)
+
+
+class DataList3(APIView):
+    def get(self, request, format=None):
+        return Response("WORK WORK WORK", status=status.HTTP_200_OK)
+
+    def post(self, request, format=None):
+        #start_time = time.time()
+        cursor = connection.cursor()
+        cursor.execute(
+            "(select a.userId, a.market, a.clickType, a.clickDate, a.itemId, a.countryCode, b.categoryId from clicks_recommend a join one_items_categories b on a.itemId = b.itemId order by a.id desc limit 50000) union all (select a.userId, a.market, a.clickType, a.clickDate, a.itemId, a.countryCode, b.categoryId from clicks_recommend a join one_items_categories b on a.itemId = b.itemId order by a.id limit 50000);"
+        )
+        clicks = cursor.fetchall()
+        df = pd.DataFrame(list(clicks), columns=['userId', 'market', 'clickType', 'clickDate', 'itemId', 'countryCode', 'categoryId'])
+        #df = df.sample(100000)
+        df = df.fillna(0)
+        df['time'] = pd.to_datetime(df['clickDate'])
+        df['weekday'] = df['time'].apply(lambda x: x.weekday())
+        df['month'] = df['time'].apply(lambda x: x.month)
+        pickle.dump(df, open('trainFull.pkl', 'wb'), protocol=2)
+        df_buy = df[df['clickType'] == 'BUYNOW']
+        df_hp = df[(df['clickType'] == 'HOMEPAGE')]
+        frames = [df_buy, df_hp]
+        result = pd.concat(frames)
+        X_M = result[['itemId', 'countryCode', 'weekday', 'month', 'market']]
+        lb = LabelEncoder()
+        lb.fit(result.categoryId)
+        y = lb.transform(result.categoryId)
+        np.save('classes.npy', lb.classes_)
+        X = pd.concat([X_M, pd.get_dummies(X_M['countryCode'], prefix="countryCode"),
+                       pd.get_dummies(X_M['market'], prefix="market")], axis=1)
+        X = X.drop(['countryCode', 'market'], axis=1)
+        pickle.dump(X, open('trainDataFrame.pkl', 'wb'), protocol=2)
+        clf = LogisticRegression()
+        clf = clf.fit(X, y)
+        filename = 'model.pkl'
+        pickle.dump(clf, open(filename, 'wb'), protocol=2)
+        #print("--- %s seconds ---" % (time.time() - start_time))
+        return Response("TRAIN OK", status=status.HTTP_200_OK)
+
+

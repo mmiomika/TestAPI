@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="fbb8ced4-e88a-46fb-b718-b4f51a79a8fe" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/check/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/check/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/check/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/check/views.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -85,22 +84,23 @@
     <session id="-1780296989">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="1" />
+          <entry key="project.closed" value="3" />
           <entry key="project.open.time.14" value="1" />
-          <entry key="project.open.time.2" value="1" />
-          <entry key="project.opened" value="2" />
+          <entry key="project.open.time.2" value="2" />
+          <entry key="project.open.time.3" value="1" />
+          <entry key="project.opened" value="4" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="791" />
-          <entry key="txt" value="13" />
+          <entry key="py" value="833" />
+          <entry key="txt" value="28" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="PLAIN_TEXT" value="13" />
-          <entry key="Python" value="791" />
+          <entry key="PLAIN_TEXT" value="28" />
+          <entry key="Python" value="833" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -125,8 +125,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/TestAPI/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="105" column="23" lean-forward="true" selection-start-line="105" selection-start-column="23" selection-end-line="105" selection-end-column="23" />
+            <state relative-caret-position="91">
+              <caret line="104" column="17" selection-start-line="104" selection-start-column="17" selection-end-line="104" selection-end-column="17" />
             </state>
           </provider>
         </entry>
@@ -158,10 +158,10 @@
         <entry file="file://$PROJECT_DIR$/check/views.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="213">
-              <caret line="230" lean-forward="true" selection-start-line="230" selection-end-line="230" />
+              <caret line="108" column="61" lean-forward="true" selection-start-line="108" selection-start-column="61" selection-end-line="108" selection-end-column="61" />
               <folding>
                 <element signature="e#26#75#0" expanded="true" />
-                <marker date="1541066838372" expanded="true" signature="7625:7626" ph="..." />
+                <marker date="1541623691812" expanded="true" signature="7927:7928" ph="..." />
               </folding>
             </state>
           </provider>
@@ -170,7 +170,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/check/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
+            <state relative-caret-position="119">
               <caret line="9" selection-start-line="9" selection-end-line="9" />
               <folding>
                 <element signature="e#0#28#0" expanded="true" />
@@ -215,7 +215,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -231,18 +230,13 @@
             <path>
               <item name="TestAPI" type="b2602c69:ProjectViewProjectNode" />
               <item name="TestAPI" type="462c0819:PsiDirectoryNode" />
-              <item name="check" type="462c0819:PsiDirectoryNode" />
-              <item name="migrations" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="TestAPI" type="b2602c69:ProjectViewProjectNode" />
-              <item name="TestAPI" type="462c0819:PsiDirectoryNode" />
               <item name="TestAPI" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -363,7 +357,14 @@
       <option name="project" value="LOCAL" />
       <updated>1540840681141</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="add train post">
+      <created>1541066885878</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1541066885878</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TodoView">
@@ -379,7 +380,7 @@
     <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49867374" visible="true" weight="0.2866397" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49867374" visible="true" weight="0.29635626" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" sideWeight="0.50132626" side_tool="true" weight="0.097165994" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -445,7 +446,8 @@
     <MESSAGE value="add gets" />
     <MESSAGE value="change page rows" />
     <MESSAGE value="change page rows/ add isNext" />
-    <option name="LAST_COMMIT_MESSAGE" value="change page rows/ add isNext" />
+    <MESSAGE value="add train post" />
+    <option name="LAST_COMMIT_MESSAGE" value="add train post" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/check/migrations/urls.py" />
@@ -481,6 +483,11 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/debug.log">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-5112" />
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/manage.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -500,7 +507,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/check/urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
+        <state relative-caret-position="119">
           <caret line="9" selection-start-line="9" selection-end-line="9" />
           <folding>
             <element signature="e#0#28#0" expanded="true" />
@@ -508,26 +515,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/debug.log">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-5112" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/check/views.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="213">
-          <caret line="230" lean-forward="true" selection-start-line="230" selection-end-line="230" />
+          <caret line="108" column="61" lean-forward="true" selection-start-line="108" selection-start-column="61" selection-end-line="108" selection-end-column="61" />
           <folding>
             <element signature="e#26#75#0" expanded="true" />
-            <marker date="1541066838372" expanded="true" signature="7625:7626" ph="..." />
+            <marker date="1541623691812" expanded="true" signature="7927:7928" ph="..." />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/TestAPI/settings.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="105" column="23" lean-forward="true" selection-start-line="105" selection-start-column="23" selection-end-line="105" selection-end-column="23" />
+        <state relative-caret-position="91">
+          <caret line="104" column="17" selection-start-line="104" selection-start-column="17" selection-end-line="104" selection-end-column="17" />
         </state>
       </provider>
     </entry>

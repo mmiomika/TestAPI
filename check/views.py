@@ -35,7 +35,6 @@ def fix_columns( d, columns ):
 
     add_missing_columns( d, columns )
     assert( set( columns ) - set( d.columns ) == set())
-
     extra_cols = set( d.columns ) - set( columns )
     if extra_cols:
         print ("extra columns:", extra_cols)
@@ -99,9 +98,14 @@ class DataList2(APIView):
         for x in categories_probability:
             categoryBest.append(round(x.max(),3))
         cats = lb.inverse_transform(categories)
-        categoriesDB = OneItemsCategories.objects.values_list()
-        list_result = [entry for entry in categoriesDB]
-        categoriesDF = pd.DataFrame(list_result, columns=['itemId', 'categoryId'])
+        cursor = connection.cursor()
+        cursor.execute(
+            "select a.* from qwyIntelect.one_items_categories as a left join qwyIntelect.one_items as b on a.itemId = b.id where b.auctionState <> '015' or b.auctionState <> '008';"
+        )
+        categoriesDB = cursor.fetchall()
+        #categoriesDB = OneItemsCategories.objects.values_list()
+        #list_result = [entry for entry in categoriesDB]
+        categoriesDF = pd.DataFrame(list(categoriesDB), columns=['itemId', 'categoryId'])
         categoriesDF = categoriesDF[['categoryId', 'itemId']]
         data_category = f(categoriesDF)
         f1 = X['itemId'].value_counts().to_dict()
@@ -201,6 +205,7 @@ class DataList3(APIView):
         )
         clicks = cursor.fetchall()
         df = pd.DataFrame(list(clicks), columns=['userId', 'market', 'clickType', 'clickDate', 'itemId', 'countryCode', 'categoryId'])
+        print(df.head())
         #df = df.sample(100000)
         df = df.fillna(0)
         df['time'] = pd.to_datetime(df['clickDate'])

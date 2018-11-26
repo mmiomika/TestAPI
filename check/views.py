@@ -1,6 +1,6 @@
 # Create your views here.
-from check.models import Data, OneItemsCategories
-from check.serializers import DataSerializer, ResultSerializer
+from check.models import Data, OneItemsCategories, ItemsState
+from check.serializers import DataSerializer, ResultSerializer, ItemsStateSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -16,7 +16,7 @@ from collections import defaultdict
 import os
 import operator
 from django.http import JsonResponse
-from django.db import connection
+from django.db import connection, transaction
 from scipy import sparse
 from matplotlib import dates
 from sqlalchemy import create_engine
@@ -59,11 +59,19 @@ class DataList(APIView):
         local_timezone = tzlocal.get_localzone()
         time_format = datetime.fromtimestamp(unix_timestamp, local_timezone)
         data1['clickDate'] = time_format.isoformat()
+        data2 = {"itemId": data1['itemId'], "state": data1['state']}
+        data1.pop('state')
         serializer = DataSerializer(data=data1)
-        if serializer.is_valid():
-            serializer.save()
-            return JsonResponse({"data": serializer.data})
-        return JsonResponse({"error": serializer.errors})
+        serializer1 = ItemsStateSerializer(data=data2)
+        #if serializer.is_valid():
+        #    serializer.save()
+        #print(serializer1)
+        #if serializer1.is_valid():
+        #    serializer1.save()
+        Data.objects.create(data1)
+        ItemsState.objects.create(data2)
+        return JsonResponse({"data1": serializer.data, "data2": serializer1.data})
+        #return JsonResponse({"error": serializer.errors})
 
     def get(self, request, format=None):
         return Response("WORK WORK WORK", status=status.HTTP_200_OK)

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from check.models import Data, OneItemsCategories, Items, Result
+from check.models import Data, OneItemsCategories, Items, Result, ItemsState
 
 class DataSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
@@ -8,7 +8,7 @@ class DataSerializer(serializers.Serializer):
     userId = serializers.IntegerField(default=0, allow_null=True)
     clickType = serializers.CharField(max_length=16)
     clickDate = serializers.DateTimeField()
-    itemId = serializers.IntegerField(allow_null=True)
+    itemId = serializers.IntegerField()
     page = serializers.IntegerField(default=1, allow_null=True)
     rows = serializers.IntegerField(allow_null=True)
 
@@ -41,6 +41,18 @@ class OneItemCategoriesSerializer(serializers.Serializer):
         instance.save()
         return instance
 
+class ItemsStateSerializer(serializers.Serializer):
+    itemId = serializers.PrimaryKeyRelatedField(queryset=ItemsState.objects.all())
+    state = serializers.CharField(read_only=True)
+
+    def create(self, validated_data):
+        return ItemsState.objects.create(**validated_data)
+
+    def update(self, instance, validated_data):
+        instance.itemId = validated_data.get('itemId', instance.itemId)
+        instance.state = validated_data.get('state', instance.state)
+        instance.save()
+        return instance
 
 class ItemsSerializer(serializers.Serializer):
     itemId = serializers.IntegerField()

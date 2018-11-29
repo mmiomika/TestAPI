@@ -8,7 +8,7 @@ class DataSerializer(serializers.Serializer):
     userId = serializers.IntegerField(default=0, allow_null=True)
     clickType = serializers.CharField(max_length=16)
     clickDate = serializers.DateTimeField()
-    itemId = serializers.IntegerField()
+    itemId = serializers.IntegerField(allow_null=False)
     page = serializers.IntegerField(default=1, allow_null=True)
     rows = serializers.IntegerField(allow_null=True)
 
@@ -42,7 +42,7 @@ class OneItemCategoriesSerializer(serializers.Serializer):
         return instance
 
 class ItemsStateSerializer(serializers.Serializer):
-    itemId = serializers.PrimaryKeyRelatedField(queryset=ItemsState.objects.all())
+    itemId = serializers.IntegerField(read_only=True) #PrimaryKeyRelatedField(queryset=ItemsState.objects.all())
     state = serializers.CharField(read_only=True)
 
     def create(self, validated_data):

@@ -8,7 +8,7 @@ class Data(models.Model):
     userId = models.IntegerField(default=0, null=True)
     clickType = models.CharField(max_length=16)
     clickDate = models.DateTimeField(db_column='clickDate')
-    itemId = models.IntegerField()
+    itemId = models.IntegerField(blank=False, null=False)
     page = models.IntegerField(default=1, null=True)
     rows = models.IntegerField(null=True)
 

@@ -42,8 +42,9 @@ class OneItemCategoriesSerializer(serializers.Serializer):
         return instance
 
 class ItemsStateSerializer(serializers.Serializer):
-    itemId = serializers.IntegerField(read_only=True) #PrimaryKeyRelatedField(queryset=ItemsState.objects.all())
-    state = serializers.CharField(read_only=True)
+    id = serializers.IntegerField(read_only=True)
+    itemId = serializers.IntegerField() #PrimaryKeyRelatedField(queryset=ItemsState.objects.all())
+    state = serializers.CharField(max_length=3)
 
     def create(self, validated_data):
         return ItemsState.objects.create(**validated_data)

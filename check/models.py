@@ -16,12 +16,12 @@ class Data(models.Model):
         db_table = 'clicks_recommend'
 
 class ItemsState(models.Model):
-    itemId = models.IntegerField(db_column='itemId', primary_key=True)
+    itemId = models.IntegerField(db_column='itemId')
     state = models.CharField(max_length=3, db_column='state')
 
     class Meta:
         db_table = 'items_recommend_state'
-        unique_together = (('itemId', 'state'),)
+        #unique_together = (('itemId', 'state'),)
 
 class OneItemsCategories(models.Model):
     itemId = models.BigIntegerField(db_column='itemId', primary_key=True)  # Field name made lowercase.

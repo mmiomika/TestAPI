@@ -63,13 +63,14 @@ class DataList(APIView):
         data1.pop('state')
         serializer = DataSerializer(data=data1)
         serializer1 = ItemsStateSerializer(data=data2)
-        #if serializer.is_valid():
-        #    serializer.save()
-        #print(serializer1)
-        #if serializer1.is_valid():
-        #    serializer1.save()
-        Data.objects.create(data1)
-        ItemsState.objects.create(data2)
+        if serializer.is_valid():
+            serializer.save()
+        print(serializer)
+        if serializer1.is_valid():
+            serializer1.save()
+        print(serializer1.data)
+        #Data.objects.create(data1)
+        #ItemsState.objects.create(data2)
         return JsonResponse({"data1": serializer.data, "data2": serializer1.data})
         #return JsonResponse({"error": serializer.errors})
 

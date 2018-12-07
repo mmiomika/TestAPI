@@ -3,8 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="fbb8ced4-e88a-46fb-b718-b4f51a79a8fe" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/check/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/check/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/check/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/check/serializers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/check/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/check/migrations/0002_auto_20181014_1140.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/check/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/check/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/check/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/check/views.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -97,41 +98,44 @@
     <session id="-1780296989">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="9" />
+          <entry key="project.closed" value="12" />
           <entry key="project.open.time.0" value="1" />
-          <entry key="project.open.time.11" value="1" />
+          <entry key="project.open.time.1" value="2" />
+          <entry key="project.open.time.11" value="2" />
           <entry key="project.open.time.14" value="1" />
           <entry key="project.open.time.17" value="1" />
           <entry key="project.open.time.2" value="5" />
-          <entry key="project.open.time.3" value="3" />
+          <entry key="project.open.time.3" value="4" />
           <entry key="project.open.time.8" value="1" />
-          <entry key="project.opened" value="13" />
+          <entry key="project.opened" value="18" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="1615" />
+          <entry key="py" value="3148" />
           <entry key="txt" value="42" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="PLAIN_TEXT" value="42" />
-          <entry key="Python" value="1615" />
+          <entry key="Python" value="3148" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="clicks_recommend" value="1" />
           <entry key="items_recommend_state" value="1" />
-          <entry key="log" value="10" />
+          <entry key="log" value="12" />
+          <entry key="py" value="1" />
           <entry key="sql" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="Database Element" value="2" />
-          <entry key="PLAIN_TEXT" value="10" />
+          <entry key="PLAIN_TEXT" value="12" />
+          <entry key="Python" value="1" />
           <entry key="Scratch" value="1" />
         </counts>
       </usages-collector>
@@ -147,7 +151,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/TestAPI/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="61">
+            <state relative-caret-position="1666">
               <caret line="98" column="9" selection-start-line="98" selection-start-column="9" selection-end-line="98" selection-end-column="9" />
             </state>
           </provider>
@@ -156,10 +160,10 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/check/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="10" column="56" selection-start-line="10" selection-start-column="56" selection-end-line="10" selection-end-column="56" />
+            <state relative-caret-position="391">
+              <caret line="23" column="9" selection-start-line="23" selection-start-column="9" selection-end-line="23" selection-end-column="9" />
               <folding>
-                <marker date="1543520006975" expanded="true" signature="580:824" ph="..." />
+                <marker date="1543520580334" expanded="true" signature="580:807" ph="..." />
               </folding>
             </state>
           </provider>
@@ -168,11 +172,10 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/check/serializers.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="44" column="47" selection-start-line="44" selection-start-column="47" selection-end-line="44" selection-end-column="47" />
+            <state relative-caret-position="214">
+              <caret line="54" column="23" selection-start-line="54" selection-start-column="23" selection-end-line="54" selection-end-column="23" />
               <folding>
                 <element signature="e#0#38#0" expanded="true" />
-                <marker date="1543520211520" expanded="true" signature="2022:2533" ph="..." />
               </folding>
             </state>
           </provider>
@@ -181,10 +184,10 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/check/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="252">
-              <caret line="64" column="51" selection-start-line="64" selection-start-column="51" selection-end-line="64" selection-end-column="51" />
+            <state relative-caret-position="96">
+              <caret line="264" column="70" selection-start-line="264" selection-start-column="70" selection-end-line="264" selection-end-column="70" />
               <folding>
-                <element signature="e#26#87#0" expanded="true" />
+                <element signature="e#26#110#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -193,16 +196,29 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/check/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="8" selection-start-line="8" selection-end-line="8" />
-              <folding>
-                <element signature="e#0#28#0" expanded="true" />
-              </folding>
+            <state>
+              <caret column="28" lean-forward="true" selection-start-column="28" selection-end-column="28" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/debug.log">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="252">
+              <caret line="968" column="7" selection-start-line="968" selection-start-column="7" selection-end-line="968" selection-end-column="7" />
             </state>
           </provider>
         </entry>
       </file>
     </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="UPDATE_TYPE" value="MERGE" />
@@ -213,11 +229,12 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/TestAPI/urls.py" />
-        <option value="$PROJECT_DIR$/check/urls.py" />
         <option value="$PROJECT_DIR$/TestAPI/settings.py" />
-        <option value="$PROJECT_DIR$/check/views.py" />
         <option value="$PROJECT_DIR$/check/models.py" />
         <option value="$PROJECT_DIR$/check/serializers.py" />
+        <option value="$PROJECT_DIR$/check/BaseAlgorithm.py" />
+        <option value="$PROJECT_DIR$/check/urls.py" />
+        <option value="$PROJECT_DIR$/check/views.py" />
       </list>
     </option>
   </component>
@@ -403,7 +420,21 @@
       <option name="project" value="LOCAL" />
       <updated>1543518222713</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="add train post">
+      <created>1543520425568</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1543520425568</updated>
+    </task>
+    <task id="LOCAL-00013" summary="add train post">
+      <created>1543520796934</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1543520796934</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TodoView">
@@ -417,9 +448,8 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49867374" visible="true" weight="0.1757085" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49867374" visible="true" weight="0.19190283" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" sideWeight="0.50132626" side_tool="true" weight="0.097165994" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -432,8 +462,8 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="9" sideWeight="0.49959514" weight="0.3291815" />
-      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50526315" side_tool="true" weight="0.4341637" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="11" sideWeight="0.49473685" visible="true" weight="0.34875444" />
+      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5060729" side_tool="true" weight="0.40569395" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="11" sideWeight="0.49392712" visible="true" weight="0.48042706" />
       <window_info anchor="bottom" id="Python Console" order="12" />
       <window_info anchor="bottom" id="Database Console" order="13" weight="0.3291815" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -529,71 +559,56 @@
     <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/2f8770e7-389a-49d8-a6d2-0742755b8b3e/console.sql">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="das://2f8770e7-389a-49d8-a6d2-0742755b8b3e/schema/qwyIntelect/table/items_recommend_state">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/debug.log">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="625">
-          <caret line="564" column="57" selection-start-line="564" selection-start-column="57" selection-end-line="564" selection-end-column="57" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/check/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="8" selection-start-line="8" selection-end-line="8" />
-          <folding>
-            <element signature="e#0#28#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://2f8770e7-389a-49d8-a6d2-0742755b8b3e/schema/qwyIntelect/table/clicks_recommend">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="das://2f8770e7-389a-49d8-a6d2-0742755b8b3e/schema/qwyIntelect/table/items_recommend_state" />
+    <entry file="das://2f8770e7-389a-49d8-a6d2-0742755b8b3e/schema/qwyIntelect/table/clicks_recommend" />
+    <entry file="file://$PROJECT_DIR$/check/BaseAlgorithm.py" />
     <entry file="file://$PROJECT_DIR$/TestAPI/settings.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="61">
+        <state relative-caret-position="1666">
           <caret line="98" column="9" selection-start-line="98" selection-start-column="9" selection-end-line="98" selection-end-column="9" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/check/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="56" selection-start-line="10" selection-start-column="56" selection-end-line="10" selection-end-column="56" />
+        <state relative-caret-position="391">
+          <caret line="23" column="9" selection-start-line="23" selection-start-column="9" selection-end-line="23" selection-end-column="9" />
           <folding>
-            <marker date="1543520006975" expanded="true" signature="580:824" ph="..." />
+            <marker date="1543520580334" expanded="true" signature="580:807" ph="..." />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/check/serializers.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="44" column="47" selection-start-line="44" selection-start-column="47" selection-end-line="44" selection-end-column="47" />
+        <state relative-caret-position="214">
+          <caret line="54" column="23" selection-start-line="54" selection-start-column="23" selection-end-line="54" selection-end-column="23" />
           <folding>
             <element signature="e#0#38#0" expanded="true" />
-            <marker date="1543520211520" expanded="true" signature="2022:2533" ph="..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/check/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="28" lean-forward="true" selection-start-column="28" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/debug.log">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="252">
+          <caret line="968" column="7" selection-start-line="968" selection-start-column="7" selection-end-line="968" selection-end-column="7" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/check/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="64" column="51" selection-start-line="64" selection-start-column="51" selection-end-line="64" selection-end-column="51" />
+        <state relative-caret-position="96">
+          <caret line="264" column="70" selection-start-line="264" selection-start-column="70" selection-end-line="264" selection-end-column="70" />
           <folding>
-            <element signature="e#26#87#0" expanded="true" />
+            <element signature="e#26#110#0" expanded="true" />
           </folding>
         </state>
       </provider>

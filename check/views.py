@@ -1,5 +1,4 @@
 # Create your views here.
-from check.models import Data, OneItemsCategories, ItemsState
 from check.serializers import DataSerializer, ResultSerializer, ItemsStateSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -16,14 +15,10 @@ from collections import defaultdict
 import os
 import operator
 from django.http import JsonResponse
-from django.db import connection, transaction
-from scipy import sparse
-from matplotlib import dates
-from sqlalchemy import create_engine
-import time
-from sklearn.model_selection import train_test_split
-from sklearn.ensemble import GradientBoostingClassifier
+from django.db import connection
+from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.linear_model import LogisticRegression
+from scipy import sparse
 
 
 def add_missing_columns( d, columns ):
@@ -50,11 +45,12 @@ def f(df):
     return df2
 
 class DataList(APIView):
-
+    '''
+    Class for save actual state of recommended items
+    '''
     def post(self,request,format=None):
         json_data = request.body.decode('utf-8')
         data1 = json.loads(json_data)
-        print(data1)
         unix_timestamp = float(data1['clickDate'])/1000
         local_timezone = tzlocal.get_localzone()
         time_format = datetime.fromtimestamp(unix_timestamp, local_timezone)
@@ -63,15 +59,10 @@ class DataList(APIView):
         data1.pop('state')
         serializer = DataSerializer(data=data1)
         serializer1 = ItemsStateSerializer(data=data2)
-        print(data2)
         if serializer.is_valid():
             serializer.save()
-        print(serializer.data)
         if serializer1.is_valid():
             serializer1.save()
-        print(serializer1.data)
-        #Data.objects.create(data1)
-        #ItemsState.objects.create(data2)
         return JsonResponse({"data1": serializer.data, "data2": serializer1.data})
 
     def get(self, request, format=None):
@@ -87,6 +78,13 @@ class DataList2(APIView):
         time_format = datetime.fromtimestamp(unix_timestamp, local_timezone)
         data1['clickDate'] = time_format.isoformat()
         test = pd.DataFrame.from_dict(data1, orient='index').T
+        page = int(test['page'])
+        rows = int(test['rows'])
+        end = page * rows
+        start = end - rows
+
+        # categories
+
         lb = LabelEncoder()
         lb.classes_ = np.load(os.path.join(BASE_DIR, 'check/classes.npy'))
         test = test.fillna(0)
@@ -100,122 +98,193 @@ class DataList2(APIView):
         X_test1 = X_test.drop(['countryCode', 'market'], axis=1)
         X = pickle.load(open(os.path.join(BASE_DIR, 'check/trainDataFrame.pkl'), 'rb'))
         fixed_d = fix_columns(X_test1, X.columns)
-        clf = pickle.load(open(os.path.join(BASE_DIR,'check/model.pkl'), 'rb'))
+        clf = pickle.load(open(os.path.join(BASE_DIR, 'check/model.pkl'), 'rb'))
         categories = clf.predict(fixed_d)
         categories_probability = clf.predict_proba(fixed_d)
         categoryBest = []
         for x in categories_probability:
-            categoryBest.append(round(x.max(),3))
+            categoryBest.append(round(x.max(), 3))
         cats = lb.inverse_transform(categories)
+
+        user_to_item_matrix = sparse.load_npz(os.path.join(BASE_DIR, 'check/user_item_matrix.npz'))
+        cosine_similarity_matrix = cosine_similarity(user_to_item_matrix, user_to_item_matrix, dense_output=False)
+        cosine_similarity_matrix.setdiag(0)
+
+        # train - table
         cursor = connection.cursor()
         cursor.execute(
-            "select a.* from qwyIntelect.one_items_categories as a left join qwyIntelect.one_items as b on a.itemId = b.id where b.auctionState <> '015' or b.auctionState <> '008';"
+            '''
+                select distinct *
+                   from clicks_recommend
+                   where userId is not null and itemId is not null;
+            '''
         )
-        categoriesDB = cursor.fetchall()
-        #categoriesDB = OneItemsCategories.objects.values_list()
-        #list_result = [entry for entry in categoriesDB]
-        categoriesDF = pd.DataFrame(list(categoriesDB), columns=['itemId', 'categoryId'])
-        categoriesDF = categoriesDF[['categoryId', 'itemId']]
-        data_category = f(categoriesDF)
-        f1 = X['itemId'].value_counts().to_dict()
-        result1 = defaultdict(lambda: list(data_category['categoryId']))
-        for index, row in data_category.iterrows():
-            sender = row['itemdId']
-            cat = row['categoryId']
-            t = []
-            for item in sender:
-                t.append(f1.get(item, 0))
-            dictionary = {k: v for k, v in zip(sender, t)}
-            result1[cat] = dictionary
-        page = int(test['page'])
-        rows = int(test['rows'])
-        end = page * rows
-        start = end - rows
-        result2 = defaultdict(lambda: list(result1.keys()))
-        for k, v in result1.items():
-            sorted_x = sorted(v.items(), key=operator.itemgetter(1), reverse=True)
-            result2[k] = sorted_x#[start:end]
-        final = pd.DataFrame(list(result2.items()), columns=['categoryId', 'items'])
-        items_list = [[]]
-        prob_list = [[]]
-        for v in final['items']:
-            tmp = []
-            tmp1 = []
-            for v1 in v:
-                tmp.append(v1[0])
-                tmp1.append(v1[1])
-            items_list.append(tmp)
-            prob_list.append(tmp1)
-        items_list.pop(0)
-        prob_list.pop(0)
-        final['itemsId'] = items_list
-        final['probability'] = prob_list
-        final = final.drop(['items'], axis=1)
-        prob_cnt = [[]]
-        for i in final['probability']:
-            cnt1 = []
-            cnt = 0
-            sum1 = sum(i)
-            for j in i:
-                if sum1 != 0:
-                    cnt1.append(round(float(j / sum1), 3))
-                else:
-                    cnt1.append(round(float(1 / len(i)), 3))
-            prob_cnt.append(cnt1)
-        prob_cnt.pop(0)
-        final['percentItem'] = prob_cnt
-        final['percentItem1'] = final['percentItem'].apply(lambda x: x[start:end])
-        final['itemsId1'] = final['itemsId'].apply(lambda x: x[start:end])
-        final['isNext'] = final['percentItem'].apply(lambda x: 1 if (len(x) - end) >= 0 else 0)
-        catList = []
-        probab = []
-        flg = 0
-        for x in cats:
-            if x in final['categoryId']:
-                catList = (list(final[final['categoryId'] == x]['itemsId1'])[0])
-                probab = (list(final[final['categoryId'] == x]['percentItem1'])[0])
-                flg = (list(final[final['categoryId'] == x]['isNext'])[0])
-        itemsList = []
-        for k, v in zip(catList, probab):
-            tmpDict = {"itemId": k, "percentItem": v}
-            itemsList.append(tmpDict)
+        clicks = cursor.fetchall()
+        events = pd.DataFrame(list(clicks), columns=['id', 'market', 'clickType', 'clickDate', 'itemId', 'userId', 'ip',
+                                                     'countryCode'])
 
-        finalDict = {"market": list(test['market'])[0],
-                     "countryCode": list(test['countryCode'])[0],
-                     "userId": list(test['userId'])[0],
-                     "categoryId": cats[0],
-                     "categoryPercentage": categoryBest[0],
-                     "isNext": flg,
-                     "items": itemsList}
-        serializer = ResultSerializer(finalDict)
-        '''
-        SAVE RESULTS OF PREDICT
-        if serializer.is_valid():
-            serializer.save()
-            print("--- %s seconds ---" % (time.time() - start_time))
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        '''
-        return JsonResponse(serializer.data)
+        users_list = events['userId']
+        current_user = list(test['userId'])[0]
 
+        cursor.execute(
+            '''
+            SELECT *
+            from items_recommend_state
+            where state = '003';
+            '''
+        )
+        states = cursor.fetchall()
+        state = pd.DataFrame(list(states), columns=['id', 'itemId', 'state'])
+
+        if current_user in users_list:
+            user_recommended = cosine_similarity_matrix[current_user].argmax()
+            coo_user_matrix = user_to_item_matrix[user_recommended].tocoo()
+            sort_df = pd.DataFrame({'itemId': [x for x in coo_user_matrix.col],
+                                    'value': [y for y in coo_user_matrix.data]})
+            sort_df = sort_df.sort_values(by=['value'], ascending=False).reset_index()
+            sort_df = sort_df[['itemId', 'value']]
+            sort_df['probability'] = sort_df['value'].apply(lambda x: round(x / sort_df['value'].max(), 3))
+            full_df = pd.merge(sort_df, state, how='left', on='itemId')
+            full_df = full_df[~pd.isnull(full_df['state'])]
+            items = list(full_df['itemId'])
+            probab = list(full_df['probability'])
+            items_save = items[start:end]
+            probab_save = probab[start:end]
+
+            flg = 0
+            if len(items) - end >= 0:
+                flg = 1
+
+            items_list = []
+            for k, v in zip(items_save, probab_save):
+                tmp_dict = {"itemId": k, "percentItem": v}
+                items_list.append(tmp_dict)
+
+            finalDict = {"market": list(test['market'])[0],
+                         "countryCode": list(test['countryCode'])[0],
+                         "userId": list(test['userId'])[0],
+                         "categoryId": cats[0],
+                         "categoryPercentage": categoryBest[0],
+                         "isNext": flg,
+                         "items": items_list}
+            serializer = ResultSerializer(finalDict)
+            return JsonResponse(serializer.data)
+        else:
+            cursor.execute(
+                '''
+                select b.itemId,
+                       b.cnt
+                from
+                (select a.itemId,
+                        a.market,
+                        count(a.itemId) as cnt
+                from clicks_recommend as a
+                group by a.itemId, a.market) as b
+                where b.market = %s
+                order by b.cnt desc;
+                ''', [list(test['market'])[0]]
+            )
+            top_sold = cursor.fetchall()
+            top_items = pd.DataFrame(list(top_sold), columns=['itemId', 'cnt'])
+            top_items['probability'] = top_items['cnt'].apply(lambda x: round(x / top_items['cnt'].max(), 3))
+
+            full_df = pd.merge(top_items, state, how='left', on='itemId')
+            full_df = full_df[~pd.isnull(full_df['state'])]
+            items = list(full_df['itemId'])
+            probab = list(full_df['probability'])
+            items_save = items[start:end]
+            probab_save = probab[start:end]
+
+            flg = 0
+            if len(items) - end >= 0:
+                flg = 1
+
+            items_list = []
+            for k, v in zip(items_save, probab_save):
+                tmp_dict = {"itemId": k, "percentItem": v}
+                items_list.append(tmp_dict)
+
+            finalDict = {"market": list(test['market'])[0],
+                         "countryCode": list(test['countryCode'])[0],
+                         "userId": list(test['userId'])[0],
+                         "categoryId": cats[0],
+                         "categoryPercentage": categoryBest[0],
+                         "isNext": flg,
+                         "items": items_list}
+            serializer = ResultSerializer(finalDict)
+            return JsonResponse(serializer.data)
+
+        return Response("OK")
     def get(self, request, format=None):
         return Response("WORK WORK WORK", status=status.HTTP_200_OK)
 
 
 class DataList3(APIView):
+    '''
+    Class for training of user_item_matrix
+    '''
+
     def get(self, request, format=None):
         return Response("WORK WORK WORK", status=status.HTTP_200_OK)
 
     def post(self, request, format=None):
-        #start_time = time.time()
+        start = datetime.now()
+        cursor = connection.cursor()
+        cursor.execute(
+            '''
+                select distinct id as itemId
+                from one_items ;
+            '''
+        )
+        items = cursor.fetchall()
+        df_items = pd.DataFrame(list(items), columns=['itemId'])
+        cursor.execute(
+            '''
+                select distinct *
+                   from clicks_recommend
+                   where userId is not null and itemId is not null;
+            '''
+        )
+        clicks = cursor.fetchall()
+        events = pd.DataFrame(list(clicks), columns=['id', 'market', 'countryCode', 'userId',
+                                                     'clickType', 'clickDate','itemId', 'page', 'rows'])
+        n_users = events['userId'].max()
+        n_items = df_items['itemId'].max()
+        #print(str(n_users) + " " + str(n_items))
+        user_to_item_matrix = sparse.dok_matrix((n_users + 1, n_items + 2), dtype=np.int8)
+
+        action_weights = {'CREDIT': 4, 'HOMEPAGE': 3, 'BUYNOW': 5,
+                          'PLACEBID': 2, 'SHOWBIDS': 1}
+
+        for row in events.itertuples():
+            mapped_user_key = row[4]
+            event_type = row.clickType
+            if event_type in action_weights.keys():
+                user_to_item_matrix[mapped_user_key, row[7]] = action_weights[event_type]
+        #sparse.save_npz(os.path.join(BASE_DIR, 'check/user_item_matrix.npz'), user_to_item_matrix)
+        pickle.dump(os.path.join(BASE_DIR, 'check/user_item_matrix.pkl'), user_to_item_matrix)
+        print("Process of training finished. It took {}.".format(datetime.now() - start))
+        return Response("TRAIN OK", status=status.HTTP_200_OK)
+
+
+class DataList4(APIView):
+    '''
+    Class for training classification
+    '''
+
+    def get(self, request, format=None):
+        return Response("WORK WORK WORK", status=status.HTTP_200_OK)
+
+    def post(self, request, format=None):
+        # start_time = time.time()
         cursor = connection.cursor()
         cursor.execute(
             "(select a.userId, a.market, a.clickType, a.clickDate, a.itemId, a.countryCode, b.categoryId from clicks_recommend a join one_items_categories b on a.itemId = b.itemId order by a.id desc limit 50000) union all (select a.userId, a.market, a.clickType, a.clickDate, a.itemId, a.countryCode, b.categoryId from clicks_recommend a join one_items_categories b on a.itemId = b.itemId order by a.id limit 50000);"
         )
         clicks = cursor.fetchall()
-        df = pd.DataFrame(list(clicks), columns=['userId', 'market', 'clickType', 'clickDate', 'itemId', 'countryCode', 'categoryId'])
+        df = pd.DataFrame(list(clicks),
+                          columns=['userId', 'market', 'clickType', 'clickDate', 'itemId', 'countryCode', 'categoryId'])
         print(df.head())
-        #df = df.sample(100000)
         df = df.fillna(0)
         df['time'] = pd.to_datetime(df['clickDate'])
         df['weekday'] = df['time'].apply(lambda x: x.weekday())
@@ -238,7 +307,6 @@ class DataList3(APIView):
         clf = clf.fit(X, y)
         filename = 'model.pkl'
         pickle.dump(clf, open(filename, 'wb'), protocol=2)
-        #print("--- %s seconds ---" % (time.time() - start_time))
+        # print("--- %s seconds ---" % (time.time() - start_time))
         return Response("TRAIN OK", status=status.HTTP_200_OK)
-
 

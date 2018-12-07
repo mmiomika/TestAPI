@@ -106,7 +106,8 @@ class DataList2(APIView):
             categoryBest.append(round(x.max(), 3))
         cats = lb.inverse_transform(categories)
 
-        user_to_item_matrix = sparse.load_npz(os.path.join(BASE_DIR, 'check/user_item_matrix.npz'))
+        user_to_item_matrix = pickle.load(open(os.path.join(BASE_DIR, 'check/user_item_matrix.pkl'), 'rb'))
+        #sparse.load_npz(os.path.join(BASE_DIR, 'check/user_item_matrix.npz'))
         cosine_similarity_matrix = cosine_similarity(user_to_item_matrix, user_to_item_matrix, dense_output=False)
         cosine_similarity_matrix.setdiag(0)
 
@@ -120,10 +121,10 @@ class DataList2(APIView):
             '''
         )
         clicks = cursor.fetchall()
-        events = pd.DataFrame(list(clicks), columns=['id', 'market', 'clickType', 'clickDate', 'itemId', 'userId', 'ip',
-                                                     'countryCode'])
+        events = pd.DataFrame(list(clicks), columns=['id', 'market', 'countryCode', 'userId',
+                                                     'clickType', 'clickDate', 'itemId', 'page', 'rows'])
 
-        users_list = events['userId']
+        users_list = list(events['userId'])
         current_user = list(test['userId'])[0]
 
         cursor.execute(
@@ -146,6 +147,7 @@ class DataList2(APIView):
             sort_df['probability'] = sort_df['value'].apply(lambda x: round(x / sort_df['value'].max(), 3))
             full_df = pd.merge(sort_df, state, how='left', on='itemId')
             full_df = full_df[~pd.isnull(full_df['state'])]
+            full_df = full_df.drop_duplicates(['itemId'])
             items = list(full_df['itemId'])
             probab = list(full_df['probability'])
             items_save = items[start:end]
@@ -190,6 +192,7 @@ class DataList2(APIView):
 
             full_df = pd.merge(top_items, state, how='left', on='itemId')
             full_df = full_df[~pd.isnull(full_df['state'])]
+            full_df = full_df.drop_duplicates(['itemId'])
             items = list(full_df['itemId'])
             probab = list(full_df['probability'])
             items_save = items[start:end]
@@ -262,7 +265,7 @@ class DataList3(APIView):
             if event_type in action_weights.keys():
                 user_to_item_matrix[mapped_user_key, row[7]] = action_weights[event_type]
         #sparse.save_npz(os.path.join(BASE_DIR, 'check/user_item_matrix.npz'), user_to_item_matrix)
-        pickle.dump(os.path.join(BASE_DIR, 'check/user_item_matrix.pkl'), user_to_item_matrix)
+        pickle.dump(user_to_item_matrix, open(os.path.join(BASE_DIR, 'check/user_item_matrix.pkl'), 'wb'))
         print("Process of training finished. It took {}.".format(datetime.now() - start))
         return Response("TRAIN OK", status=status.HTTP_200_OK)
 

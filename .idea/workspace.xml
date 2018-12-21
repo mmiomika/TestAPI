@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="fbb8ced4-e88a-46fb-b718-b4f51a79a8fe" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/check/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/check/migrations/0002_auto_20181014_1140.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/check/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/check/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/check/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/check/views.py" afterDir="false" />
     </list>
@@ -46,6 +44,16 @@
   </component>
   <component name="DjangoConsoleOptions" custom-start-script="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)">
     <option name="myCustomStartScript" value="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)" />
+  </component>
+  <component name="ExecutionTargetDialog">
+    <checked>
+      <node key="2f8770e7-389a-49d8-a6d2-0742755b8b3e">
+        <node key="qwyIntelect" />
+      </node>
+    </checked>
+    <expanded>
+      <node key="2f8770e7-389a-49d8-a6d2-0742755b8b3e" />
+    </expanded>
   </component>
   <component name="FUSProjectUsageTrigger">
     <session id="292483986">
@@ -98,44 +106,50 @@
     <session id="-1780296989">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="12" />
+          <entry key="project.closed" value="19" />
           <entry key="project.open.time.0" value="1" />
-          <entry key="project.open.time.1" value="2" />
+          <entry key="project.open.time.1" value="3" />
           <entry key="project.open.time.11" value="2" />
           <entry key="project.open.time.14" value="1" />
           <entry key="project.open.time.17" value="1" />
-          <entry key="project.open.time.2" value="5" />
+          <entry key="project.open.time.2" value="6" />
+          <entry key="project.open.time.26" value="1" />
           <entry key="project.open.time.3" value="4" />
+          <entry key="project.open.time.4" value="3" />
+          <entry key="project.open.time.5" value="1" />
           <entry key="project.open.time.8" value="1" />
-          <entry key="project.opened" value="18" />
+          <entry key="project.opened" value="25" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="3148" />
+          <entry key="py" value="3545" />
+          <entry key="sql" value="15" />
           <entry key="txt" value="42" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="PLAIN_TEXT" value="42" />
-          <entry key="Python" value="3148" />
+          <entry key="Python" value="3545" />
+          <entry key="SQL" value="15" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="clicks_recommend" value="1" />
+          <entry key="clicks_recommend" value="2" />
           <entry key="items_recommend_state" value="1" />
-          <entry key="log" value="12" />
+          <entry key="log" value="13" />
           <entry key="py" value="1" />
-          <entry key="sql" value="1" />
+          <entry key="sql" value="3" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="Database Element" value="2" />
-          <entry key="PLAIN_TEXT" value="12" />
+          <entry key="Database Element" value="3" />
+          <entry key="PLAIN_TEXT" value="13" />
           <entry key="Python" value="1" />
+          <entry key="SQL" value="2" />
           <entry key="Scratch" value="1" />
         </counts>
       </usages-collector>
@@ -151,8 +165,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/TestAPI/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1666">
-              <caret line="98" column="9" selection-start-line="98" selection-start-column="9" selection-end-line="98" selection-end-column="9" />
+            <state relative-caret-position="91">
+              <caret line="103" column="18" selection-start-line="103" selection-start-column="18" selection-end-line="103" selection-end-column="18" />
             </state>
           </provider>
         </entry>
@@ -172,11 +186,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/check/serializers.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="214">
+            <state relative-caret-position="261">
               <caret line="54" column="23" selection-start-line="54" selection-start-column="23" selection-end-line="54" selection-end-column="23" />
-              <folding>
-                <element signature="e#0#38#0" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -184,10 +195,11 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/check/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="96">
-              <caret line="264" column="70" selection-start-line="264" selection-start-column="70" selection-end-line="264" selection-end-column="70" />
+            <state relative-caret-position="148">
+              <caret line="195" column="13" selection-start-line="195" selection-start-column="13" selection-end-line="195" selection-end-column="13" />
               <folding>
                 <element signature="e#26#110#0" expanded="true" />
+                <marker date="1545396944977" expanded="true" signature="13419:14138" ph="..." />
               </folding>
             </state>
           </provider>
@@ -196,17 +208,11 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/check/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="28" lean-forward="true" selection-start-column="28" selection-end-column="28" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/debug.log">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="252">
-              <caret line="968" column="7" selection-start-line="968" selection-start-column="7" selection-end-line="968" selection-end-column="7" />
+            <state relative-caret-position="204">
+              <caret line="12" column="49" selection-start-line="12" selection-start-column="49" selection-end-line="12" selection-end-column="49" />
+              <folding>
+                <element signature="e#0#28#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -233,6 +239,7 @@
         <option value="$PROJECT_DIR$/check/models.py" />
         <option value="$PROJECT_DIR$/check/serializers.py" />
         <option value="$PROJECT_DIR$/check/BaseAlgorithm.py" />
+        <option value="$PROJECT_DIR$/check/check.sql" />
         <option value="$PROJECT_DIR$/check/urls.py" />
         <option value="$PROJECT_DIR$/check/views.py" />
       </list>
@@ -434,7 +441,21 @@
       <option name="project" value="LOCAL" />
       <updated>1543520796934</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="add train post">
+      <created>1544207922307</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1544207922307</updated>
+    </task>
+    <task id="LOCAL-00015" summary="add train post">
+      <created>1544208826762</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1544208826762</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TodoView">
@@ -449,12 +470,12 @@
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49867374" visible="true" weight="0.19190283" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49867374" visible="true" weight="0.2145749" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" sideWeight="0.50132626" side_tool="true" weight="0.097165994" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.3291815" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.3291815" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49554655" weight="0.4466192" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -462,9 +483,9 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="9" sideWeight="0.49959514" weight="0.3291815" />
-      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5060729" side_tool="true" weight="0.40569395" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="11" sideWeight="0.49392712" visible="true" weight="0.48042706" />
-      <window_info anchor="bottom" id="Python Console" order="12" />
+      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5044534" side_tool="true" weight="0.4466192" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="11" sideWeight="0.49311742" visible="true" weight="0.5533808" />
+      <window_info anchor="bottom" id="Python Console" order="12" weight="0.3291815" />
       <window_info anchor="bottom" id="Database Console" order="13" weight="0.3291815" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -560,12 +581,32 @@
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="das://2f8770e7-389a-49d8-a6d2-0742755b8b3e/schema/qwyIntelect/table/items_recommend_state" />
-    <entry file="das://2f8770e7-389a-49d8-a6d2-0742755b8b3e/schema/qwyIntelect/table/clicks_recommend" />
     <entry file="file://$PROJECT_DIR$/check/BaseAlgorithm.py" />
-    <entry file="file://$PROJECT_DIR$/TestAPI/settings.py">
+    <entry file="das://2f8770e7-389a-49d8-a6d2-0742755b8b3e/schema/qwyIntelect/table/clicks_recommend.sql">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1666">
-          <caret line="98" column="9" selection-start-line="98" selection-start-column="9" selection-end-line="98" selection-end-column="9" />
+        <state relative-caret-position="17">
+          <caret line="1" column="13" selection-start-line="1" selection-start-column="13" selection-end-line="1" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/check/check.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="8" selection-start-line="1" selection-start-column="8" selection-end-line="1" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/debug.log">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="18734">
+          <caret line="1102" column="4" selection-start-line="1102" selection-start-column="4" selection-end-line="1102" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://2f8770e7-389a-49d8-a6d2-0742755b8b3e/schema/qwyIntelect/table/clicks_recommend">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
         </state>
       </provider>
     </entry>
@@ -579,36 +620,37 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/TestAPI/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="91">
+          <caret line="103" column="18" selection-start-line="103" selection-start-column="18" selection-end-line="103" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/check/serializers.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="214">
+        <state relative-caret-position="261">
           <caret line="54" column="23" selection-start-line="54" selection-start-column="23" selection-end-line="54" selection-end-column="23" />
-          <folding>
-            <element signature="e#0#38#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/check/urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="28" lean-forward="true" selection-start-column="28" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/debug.log">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="968" column="7" selection-start-line="968" selection-start-column="7" selection-end-line="968" selection-end-column="7" />
+        <state relative-caret-position="204">
+          <caret line="12" column="49" selection-start-line="12" selection-start-column="49" selection-end-line="12" selection-end-column="49" />
+          <folding>
+            <element signature="e#0#28#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/check/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="96">
-          <caret line="264" column="70" selection-start-line="264" selection-start-column="70" selection-end-line="264" selection-end-column="70" />
+        <state relative-caret-position="148">
+          <caret line="195" column="13" selection-start-line="195" selection-start-column="13" selection-end-line="195" selection-end-column="13" />
           <folding>
             <element signature="e#26#110#0" expanded="true" />
+            <marker date="1545396944977" expanded="true" signature="13419:14138" ph="..." />
           </folding>
         </state>
       </provider>

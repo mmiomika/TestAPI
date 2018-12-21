@@ -7,6 +7,7 @@ urlpatterns = [
     path('predict/', views.DataList2.as_view()),
     path('train/', views.DataList3.as_view()),
     path('trainCategories/', views.DataList4.as_view()),
+    path('updateStatus/', views.DataList5.as_view()),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

@@ -129,14 +129,14 @@ class DataList2(APIView):
 
         cursor.execute(
             '''
-            SELECT *
-            from items_recommend_state
-            where state = '003';
+            select a.itemId, a.state, max(a.updateTime)
+            from items_recommend_state as a
+            where a.state = '003'
+            group by a.itemId, a.state;
             '''
         )
         states = cursor.fetchall()
-        state = pd.DataFrame(list(states), columns=['id', 'itemId', 'state'])
-
+        state = pd.DataFrame(list(states), columns=['itemId', 'state', 'time'])
         if current_user in users_list:
             user_recommended = cosine_similarity_matrix[current_user].argmax()
             coo_user_matrix = user_to_item_matrix[user_recommended].tocoo()
@@ -178,18 +178,17 @@ class DataList2(APIView):
                        b.cnt
                 from
                 (select a.itemId,
-                        a.market,
+                        a.countryCode,
                         count(a.itemId) as cnt
-                from clicks_recommend as a
-                group by a.itemId, a.market) as b
-                where b.market = %s
+                 from clicks_recommend as a
+                 group by a.itemId, a.countryCode) as b
+                where b.countryCode = %s
                 order by b.cnt desc;
-                ''', [list(test['market'])[0]]
+                ''', [list(test['countryCode'])[0]]
             )
             top_sold = cursor.fetchall()
             top_items = pd.DataFrame(list(top_sold), columns=['itemId', 'cnt'])
             top_items['probability'] = top_items['cnt'].apply(lambda x: round(x / top_items['cnt'].max(), 3))
-
             full_df = pd.merge(top_items, state, how='left', on='itemId')
             full_df = full_df[~pd.isnull(full_df['state'])]
             full_df = full_df.drop_duplicates(['itemId'])
@@ -312,4 +311,28 @@ class DataList4(APIView):
         pickle.dump(clf, open(filename, 'wb'), protocol=2)
         # print("--- %s seconds ---" % (time.time() - start_time))
         return Response("TRAIN OK", status=status.HTTP_200_OK)
+
+
+class DataList5(APIView):
+    '''
+    Class for update status
+    '''
+    def get(self, request, format=None):
+        return Response("WORK WORK WORK", status=status.HTTP_200_OK)
+
+    #{"itemId": 697153, "active": true}
+    def post(self, request, format=None):
+        # start_time = time.time()
+        json_data = request.body.decode('utf-8')
+        data1 = json.loads(json_data)
+        if data1['active'] is True:
+            data2 = {"itemId": data1['itemId'], "state": "003"}
+        else:
+            data2 = {"itemId": data1['itemId'], "state": "005"}
+        serializer1 = ItemsStateSerializer(data=data2)
+        if serializer1.is_valid():
+            serializer1.save()
+        return Response("OK", status=status.HTTP_200_OK)
+
+
 
